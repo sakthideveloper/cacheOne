@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Tips
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item *ngIf="showNotification$ | async" class="black-color">
+    <p color="light" text-wrap>There's new data available. Click to reload the data.</p>
+    <button (click)="update$.next()" ion-button clear item-end>UPDATE</button>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let joke of jokes$ | async; let i=index">
+      <ion-avatar item-start>
+        <img src="./assets/imgs/logo.png">
+      </ion-avatar>
+      <h2>{{ getVotes(joke.id) }}</h2>
+      <p text-wrap [innerHTML]="joke.joke"></p>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button (click)="forceReload()">
+    FETCH NEW JOKES
+  </button>
+</ion-content>
